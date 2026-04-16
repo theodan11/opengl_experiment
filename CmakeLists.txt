@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(Bubble_Sort)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include_directories(
+    .
+    dep/glm
+    dep/stb
+)
+
+find_package(GLEW REQUIRED)
+find_package(glfw3 REQUIRED)
+
+
+add_definitions(-DGLEW_STATIC)
+add_executable(${PROJECT_NAME} main.cpp mesh.cpp game_object.cpp)
+
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    GLEW::GLEW
+    glfw3
+    opengl32
+)
