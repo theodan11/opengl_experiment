@@ -139,13 +139,6 @@ CMakeFiles/Bubble_Sort.dir/main.cpp.obj: G:\CPP\BubbleSortOpenGL\main.cpp \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stdint.h \
  C:/msys64/ucrt64/include/stdint.h C:/msys64/ucrt64/include/GL/glu.h \
  C:/msys64/ucrt64/include/GL/gl.h C:/msys64/ucrt64/include/GLFW/glfw3.h \
- C:/msys64/ucrt64/include/c++/14.2.0/fstream \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/codecvt.h \
- C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \
- C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++io.h \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/fstream.tcc \
- C:/msys64/ucrt64/include/c++/14.2.0/sstream \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/sstream.tcc \
  G:/CPP/BubbleSortOpenGL/dep/glm/glm/glm.hpp \
  G:/CPP/BubbleSortOpenGL/dep/glm/glm/detail/_fixes.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/cmath \
@@ -375,4 +368,11 @@ CMakeFiles/Bubble_Sort.dir/main.cpp.obj: G:\CPP\BubbleSortOpenGL\main.cpp \
  C:/msys64/ucrt64/include/sec_api/string_s.h \
  G:/CPP/BubbleSortOpenGL/dep/glm/glm/gtc/type_ptr.inl \
  G:/CPP/BubbleSortOpenGL/mesh.h G:/CPP/BubbleSortOpenGL/game_object.h \
- G:/CPP/BubbleSortOpenGL/shader.h
+ G:/CPP/BubbleSortOpenGL/shader.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/fstream \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/codecvt.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++io.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/fstream.tcc \
+ C:/msys64/ucrt64/include/c++/14.2.0/sstream \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/sstream.tcc

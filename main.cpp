@@ -1,9 +1,6 @@
 #include<iostream>
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
-#include<fstream>
-#include<sstream>
-#include<string>
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
@@ -16,7 +13,7 @@ void bubbleSort(std::vector<int> arr);
 unsigned int shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 std::string loadShader(const char* path);
 int main() {
-
+    bool first = true;
     glfwInit();
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -38,7 +35,7 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
-    std::vector<int> listNumber = {6, 2, 4, 1, 3};
+    std::vector<int> listNumber = {6, 2, 4, 1, 3, 9, 7, 5};
 
     std::vector<float> vertices = {
         -0.5f,      0.5f,    0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
@@ -52,38 +49,77 @@ int main() {
         3, 1, 2  
     };
     Mesh mesh = Mesh(vertices, index);
-    GOBJECT mySquare = GOBJECT(mesh, glm::vec3(6.0f, -6.0f, -1.0f));
     // glBindVertexArray(0);
 
     Shader shaderProgram = Shader("../shader.v", "../shader.f");
     shaderProgram.use();
+    GOBJECT mySquare = GOBJECT(mesh,  glm::vec3(8.0f, 9.0f, -1.0f));
 
     unsigned int projectionLoc = glGetUniformLocation(shaderProgram.program, "projection");
     unsigned int viewLoc = glGetUniformLocation(shaderProgram.program, "view");
-    unsigned int modelLoc = glGetUniformLocation(shaderProgram.program, "model");
 
     glm::mat4 perspectiveMatrix = glm::perspective(glm::radians(45.0f), 600.0f/400.0f, 0.1f, 100.0f);
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(-6.0f, -4.5f, -15.0f));
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
 
     glClearColor(0.3f, 0.2f, 0.8f, 1.0f);
     glfwSwapInterval(1);
+    int count = 0;
+    double sortTimer = 0; 
+    double sortDelay = 0.5;
+    double lastTime = glfwGetTime();
+    
+    int i = 0;
+    int j = 0;
     while(!glfwWindowShouldClose(window)){
-
+       
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderProgram.use();
+     
+       for(int i = 0; i < listNumber.size(); i++){
 
-        for(int i = 0; i < listNumber.size(); i++){
+                mySquare.translateX(i * 1.1);
+                mySquare.scaleY(listNumber[i]);
+                mySquare.translateY(listNumber[i] / 2.0f);
+                mySquare.update();
+                mySquare.draw(shaderProgram.program);
+                // std::cout<<count<<std::endl;
+                // count ++;
+            }
+        double currentTime = glfwGetTime();
+        double deltaTime = (currentTime - lastTime);
 
-            mySquare.translateX(i * 1.1);
-            mySquare.scaleY(listNumber[i]);
-            mySquare.translateY(listNumber[i] / 2.0f);
-            mySquare.update();
-            mySquare.draw(shaderProgram.program);
-            std::cout<<listNumber[i]<<std::endl;
+        lastTime = currentTime;
+        sortTimer += deltaTime;
+        std::cout<<sortTimer<<std::endl;
+
+        if((i < listNumber.size() - 1) && sortTimer>= sortDelay){
+            sortTimer = 0;
+
+            if(i<listNumber.size()){
+                if(j < listNumber.size() - i - 1 ){
+                    if(listNumber[j] > listNumber[j+1]){
+                        int temp = listNumber[j];
+                        listNumber[j] = listNumber[j+1];
+                        listNumber[j+1] = temp;
+                    }
+
+           
+                    j++;
+                }else{
+                    j=0;
+                    i++;
+                }
+            }
+            else{
+                std::cout<<"Sorted"<<std::endl;
+            }
+
+           
+            
         }
 
 
@@ -93,7 +129,3 @@ int main() {
     return 0;
 }
 
-
-void bubbleSort(std::vector<int> arr){
-
-}
