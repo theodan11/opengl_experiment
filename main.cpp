@@ -35,7 +35,7 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
-    std::vector<int> listNumber = {6, 2, 4, 1, 3, 9, 7, 5, 8};
+    std::vector<int> listNumber = {6, 2, 4, 9, 7, 5, 8, 1, 3};
 
     std::vector<float> vertices = {
         -0.5f,      0.5f,    0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
@@ -64,11 +64,11 @@ int main() {
 
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
 
-    glClearColor(0.3f, 0.2f, 0.8f, 1.0f);
+    glClearColor(0.3f, 0.2f, 0.6f, 1.0f);
     glfwSwapInterval(1);
     int count = 0;
     double sortTimer = 0; 
-    double sortDelay = 0.5;
+    double sortDelay = 0.3;
     double lastTime = glfwGetTime();
     
     int i = 0;
