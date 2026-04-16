@@ -200,6 +200,30 @@ mesh.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Bubble_Sort.dir\build.make CMakeFiles/Bubble_Sort.dir/mesh.cpp.s
 .PHONY : mesh.cpp.s
 
+shader.obj: shader.cpp.obj
+.PHONY : shader.obj
+
+# target to build an object file
+shader.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Bubble_Sort.dir\build.make CMakeFiles/Bubble_Sort.dir/shader.cpp.obj
+.PHONY : shader.cpp.obj
+
+shader.i: shader.cpp.i
+.PHONY : shader.i
+
+# target to preprocess a source file
+shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Bubble_Sort.dir\build.make CMakeFiles/Bubble_Sort.dir/shader.cpp.i
+.PHONY : shader.cpp.i
+
+shader.s: shader.cpp.s
+.PHONY : shader.s
+
+# target to generate assembly for a file
+shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Bubble_Sort.dir\build.make CMakeFiles/Bubble_Sort.dir/shader.cpp.s
+.PHONY : shader.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -218,6 +242,9 @@ help:
 	@echo ... mesh.obj
 	@echo ... mesh.i
 	@echo ... mesh.s
+	@echo ... shader.obj
+	@echo ... shader.i
+	@echo ... shader.s
 .PHONY : help
 
 

@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Bubble_Sort.dir/main.cpp.obj.d"
   "CMakeFiles/Bubble_Sort.dir/mesh.cpp.obj"
   "CMakeFiles/Bubble_Sort.dir/mesh.cpp.obj.d"
+  "CMakeFiles/Bubble_Sort.dir/shader.cpp.obj"
+  "CMakeFiles/Bubble_Sort.dir/shader.cpp.obj.d"
   "libBubble_Sort.dll.a"
 )
 

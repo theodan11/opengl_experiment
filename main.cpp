@@ -10,8 +10,9 @@
 #include<mesh.h>
 #include<vector>
 #include<game_object.h>
+#include<shader.h>
 
-
+void bubbleSort(std::vector<int> arr);
 unsigned int shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 std::string loadShader(const char* path);
 int main() {
@@ -37,6 +38,8 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
+    std::vector<int> listNumber = {6, 2, 4, 1, 3};
+
     std::vector<float> vertices = {
         -0.5f,      0.5f,    0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
         -0.5f,      -0.5f,   0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -49,15 +52,15 @@ int main() {
         3, 1, 2  
     };
     Mesh mesh = Mesh(vertices, index);
-    GOBJECT mySquare = GOBJECT(mesh);
+    GOBJECT mySquare = GOBJECT(mesh, glm::vec3(6.0f, -6.0f, -1.0f));
     // glBindVertexArray(0);
 
-    unsigned int shaderProgram = shader("../shader.v", "../shader.f");
-    glUseProgram(shaderProgram);
+    Shader shaderProgram = Shader("../shader.v", "../shader.f");
+    shaderProgram.use();
 
-    unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
-    unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
-    unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
+    unsigned int projectionLoc = glGetUniformLocation(shaderProgram.program, "projection");
+    unsigned int viewLoc = glGetUniformLocation(shaderProgram.program, "view");
+    unsigned int modelLoc = glGetUniformLocation(shaderProgram.program, "model");
 
     glm::mat4 perspectiveMatrix = glm::perspective(glm::radians(45.0f), 600.0f/400.0f, 0.1f, 100.0f);
     glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
@@ -66,73 +69,31 @@ int main() {
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(perspectiveMatrix));
 
     glClearColor(0.3f, 0.2f, 0.8f, 1.0f);
-
+    glfwSwapInterval(1);
     while(!glfwWindowShouldClose(window)){
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
-        // float time = (float)glfwGetTime();
-        // float scaleFactor = 1.0f + 5.0f * sin(time * 2.0f);
-        // glm::mat4 modelMatrix = glm::mat4(1.0f);
-        // modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 1.0f) );
-        // modelMatrix = glm::rotate(modelMatrix, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f ,0.0f ));
-        // modelMatrix = glm::scale(modelMatrix, glm::vec3(scaleFactor, scaleFactor, 1.0f));
+        shaderProgram.use();
 
-        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        mySquare.rotateY((float)glfwGetTime() * 2);
-        mySquare.scaleY(3.0f);
-        mySquare.update();
-        mySquare.draw(shaderProgram);
+        for(int i = 0; i < listNumber.size(); i++){
+
+            mySquare.translateX(i * 1.1);
+            mySquare.scaleY(listNumber[i]);
+            mySquare.translateY(listNumber[i] / 2.0f);
+            mySquare.update();
+            mySquare.draw(shaderProgram.program);
+            std::cout<<listNumber[i]<<std::endl;
+        }
+
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
     return 0;
 }
 
-unsigned int shader(const char* vertexShaderPath, const char* fragmentShaderPath){
-    std::string vertexShaderSource = loadShader(vertexShaderPath); 
-    const char* vs = vertexShaderSource.c_str();
-    // std::cout<<vs<<std::endl;
-    std::string fragmentShaderSource = loadShader(fragmentShaderPath);
-    const char* fs = fragmentShaderSource.c_str();
 
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+void bubbleSort(std::vector<int> arr){
 
-    glShaderSource(vertexShader, 1, &vs, NULL);
-    glShaderSource(fragmentShader, 1, &fs, NULL);
-    
-    glCompileShader(vertexShader);
-    glCompileShader(fragmentShader);
-
-    unsigned int program = glCreateProgram();
-
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
-    glLinkProgram(program);
-
- 
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    return program;
-
-}
-
-std::string loadShader(const char* path){
-    std::string content;
-
-    std::ifstream fileStream(path, std::ios::in);
-
-    if(!fileStream.is_open()){
-        std::cerr<<"Error loading Shader path";
-        return "";
-    }
-
-    std::stringstream stringStream;
-    stringStream << fileStream.rdbuf();
-    content  = stringStream.str();
-
-    return content;
 }

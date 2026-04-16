@@ -3,14 +3,20 @@
 GOBJECT::GOBJECT(Mesh &mesh, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
     mesh(mesh), position(position), rotation(rotation), scale(scale)
 {
-  
+    transformation = glm::mat4(1.0f);
+    transformation = glm::translate(transformation, position);
+    if(rotation != glm::vec3(0.0f)){
+        transformation = glm::rotate(transformation,  angle, rotation);
+    }
+    transformation = glm::scale(transformation, scale);
+
 }
 
 void GOBJECT::translateX(float x){
     position = glm::vec3(x, position.y, position.z);
 }
 void GOBJECT::translateY(float y){
-    position = glm::vec3(position.x, position.y, position.z);
+    position = glm::vec3(position.x, y, position.z);
 }
 void GOBJECT::translateZ(float z){
     position = glm::vec3(position.x, position.y, z);

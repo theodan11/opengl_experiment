@@ -16,5 +16,11 @@
   "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLEW_STATIC @CMakeFiles/Bubble_Sort.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Bubble_Sort.dir\\game_object.cpp.obj -c G:\\CPP\\BubbleSortOpenGL\\game_object.cpp",
   "file": "G:/CPP/BubbleSortOpenGL/game_object.cpp",
   "output": "CMakeFiles/Bubble_Sort.dir/game_object.cpp.obj"
+},
+{
+  "directory": "G:/CPP/BubbleSortOpenGL/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLEW_STATIC @CMakeFiles/Bubble_Sort.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Bubble_Sort.dir\\shader.cpp.obj -c G:\\CPP\\BubbleSortOpenGL\\shader.cpp",
+  "file": "G:/CPP/BubbleSortOpenGL/shader.cpp",
+  "output": "CMakeFiles/Bubble_Sort.dir/shader.cpp.obj"
 }
 ]
