@@ -35,7 +35,7 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
-    std::vector<int> listNumber = {6, 2, 4, 1, 3, 9, 7, 5};
+    std::vector<int> listNumber = {6, 2, 4, 1, 3, 9, 7, 5, 8};
 
     std::vector<float> vertices = {
         -0.5f,      0.5f,    0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
@@ -57,7 +57,7 @@ int main() {
 
     unsigned int projectionLoc = glGetUniformLocation(shaderProgram.program, "projection");
     unsigned int viewLoc = glGetUniformLocation(shaderProgram.program, "view");
-
+    unsigned int highlightLoc = glGetUniformLocation(shaderProgram.program, "highLighted");
     glm::mat4 perspectiveMatrix = glm::perspective(glm::radians(45.0f), 600.0f/400.0f, 0.1f, 100.0f);
     glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(-6.0f, -4.5f, -15.0f));
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -72,7 +72,7 @@ int main() {
     double lastTime = glfwGetTime();
     
     int i = 0;
-    int j = 0;
+    int loopingJ = 0;
     while(!glfwWindowShouldClose(window)){
        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -80,7 +80,12 @@ int main() {
         shaderProgram.use();
      
        for(int i = 0; i < listNumber.size(); i++){
+                if(i == loopingJ){
+                    glUniform1i(highlightLoc, 1);
+                }else{
 
+                    glUniform1i(highlightLoc, 0);
+                }
                 mySquare.translateX(i * 1.1);
                 mySquare.scaleY(listNumber[i]);
                 mySquare.translateY(listNumber[i] / 2.0f);
@@ -100,17 +105,17 @@ int main() {
             sortTimer = 0;
 
             if(i<listNumber.size()){
-                if(j < listNumber.size() - i - 1 ){
-                    if(listNumber[j] > listNumber[j+1]){
-                        int temp = listNumber[j];
-                        listNumber[j] = listNumber[j+1];
-                        listNumber[j+1] = temp;
+                if(loopingJ < listNumber.size() - i - 1 ){
+                    if(listNumber[loopingJ] > listNumber[loopingJ+1]){
+                        int temp = listNumber[loopingJ];
+                        listNumber[loopingJ] = listNumber[loopingJ+1];
+                        listNumber[loopingJ+1] = temp;
                     }
 
            
-                    j++;
+                    loopingJ++;
                 }else{
-                    j=0;
+                    loopingJ=0;
                     i++;
                 }
             }
